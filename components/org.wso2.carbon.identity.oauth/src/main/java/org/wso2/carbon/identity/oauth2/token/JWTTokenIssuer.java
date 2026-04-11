@@ -61,7 +61,7 @@ import java.security.Key;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPrivateKey;
+import java.security.PrivateKey;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Base64;
@@ -353,7 +353,7 @@ public class JWTTokenIssuer extends OauthTokenIssuerImpl {
             jwtClaimsSet = setSignerRealm(tenantDomain, jwtClaimsSet);
 
             Key privateKey = getPrivateKey(tenantDomain, tenantId);
-            JWSSigner signer = OAuth2Util.createJWSSigner((RSAPrivateKey) privateKey);
+            JWSSigner signer = OAuth2Util.createJWSSigner((PrivateKey) privateKey);
             JWSHeader.Builder headerBuilder = new JWSHeader.Builder((JWSAlgorithm) signatureAlgorithm);
             String certThumbPrint = OAuth2Util.getThumbPrint(tenantDomain, tenantId);
             headerBuilder.keyID(OAuth2Util.getKID(OAuth2Util.getCertificate(tenantDomain, tenantId),
